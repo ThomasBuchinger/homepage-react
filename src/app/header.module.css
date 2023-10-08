@@ -1,0 +1,9 @@
+.hero {
+  background-image: url(/icons/kubernetes-hero-texture.png);
+  background-color: #303030;
+  text-align: center;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 0;
+  position: relative;
+}
