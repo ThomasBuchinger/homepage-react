@@ -1,35 +1,43 @@
 import Image from 'next/image'
 import styles from './page.module.css'
-import { AppBar, Grid, Stack } from '@mui/material'
+import { AppBar, Divider, Grid, Stack } from '@mui/material'
 import BaseComponent from '@/components/baseelement'
 import { Masonry } from '@mui/lab'
 import SSRMasonry from '@/components/testcomponent'
 import TitleBar from './header'
-import { Evergreen, H3, KVM, NAS } from '@/components/evergreen'
+import { Evergreen, H3, KVM, NAS, ProdK8s } from '@/components/status'
+import { DnsUpdate, OpenApps, OpenApps2 } from '@/components/apps'
 
 
 export default function Home() {
   return (
     <>
     <TitleBar />
-    <main className={styles.main}>
+    <main style={{ margin: "50px"}}>
 
 
       <div className={styles.description}>
       </div>
 
-      <div className={styles.main}>
-        <Grid spacing={2} container columnSpacing={2} rowSpacing={2}>
+        <Grid container spacing={2}>
+          <OpenApps />
+          <DnsUpdate />
+          <OpenApps2 />
+        </Grid>
+
+
+        {/* <Grid container> */}
+        <Grid container spacing={2} justifyContent={"center"}>
+          {/* <Grid container spacing={2} xs={10}> */}
+
+          <Grid item xs={12}>
+            <Divider className={styles.code} style={{ marginTop: "50px", marginBottom: "50px" }}> Status Section</Divider>
+          </Grid>
+
+
           <Evergreen />
           <NAS />
-          <BaseComponent name="prod" checks={[
-            "Kubernetes Dashboard",
-            "ArgoCD is Up",
-            "velero? is up",
-            "PVs are mounted over iSCSI",
-            "Grafana Link",
-            "Prometheus for advanced metrics",
-          ]} />
+          <ProdK8s />
           <H3 />
           <KVM />
           <BaseComponent name="Network" checks={[
@@ -46,8 +54,8 @@ export default function Home() {
             "Drucker",
             "Internet"
           ]} />
-        </Grid>
-       </div>
+          </Grid>
+        {/* </Grid> */}
      </main>
     </>
   )
