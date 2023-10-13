@@ -2,10 +2,11 @@ import { Button, ButtonGroup, Card, CardActions, CardContent, CardHeader, Grid, 
 import Image from "next/image";
 import { AppLauncherComponent, ApplicationButton } from "./baseelement";
 import App from "next/app";
+import { useHealthCheck } from "@/util/checks";
 
 const grid_size = "auto"
 
-export function DnsUpdate() {
+export function GitopsEvergreen() {
   return <Grid item xs={grid_size}>
     <Card>
       <CardHeader title="Evergreen - Gitops" titleTypographyProps={{ variant: "h6" }}
@@ -27,13 +28,13 @@ export function DnsUpdate() {
   </Grid>
 }
 export function OpenApps() {
-  return <Grid item xs={6}>
+  return <Grid item xs={5}>
     <Stack spacing={1}>
       <AppLauncherComponent name="Production">
-        <ApplicationButton href="http://paperless.10.0.0.32.nip.io" icon="paperless-square.svg" text="Paperless (Old Prod)" />
+        <ApplicationButton href="https://paperless.buc.sh" icon="paperless-square.svg" text="Paperless" />
         <ApplicationButton href="http://10.0.0.20:30024/" icon="qbittorrent-new-light.svg" text="qBittorrent" />
-        <ApplicationButton href="http://sync.10.0.0.32.nip.io:32001/" icon="syncthing-logo-128.png" text="Syncthing (Broken)" />
-        <Button variant="outlined" href={""} target="_blank">Filestash</Button>
+        <ApplicationButton href="https://syncthing.buc.sh" icon="syncthing-logo-128.png" text="Syncthing" />
+        <ApplicationButton href="http://files.bus.sh" icon="kubernetes-pv-labeled.svg" text="iSCSI Files" />
       </AppLauncherComponent>
 
       <AppLauncherComponent name="Utility">
@@ -50,7 +51,7 @@ export function OpenApps() {
   </Grid>
 }
 export function OpenApps2() {
-  return <Grid item xs={4}>
+  return <Grid item xs={3}>
     <Stack spacing={1}>
       <AppLauncherComponent name="Infrastructure">
         <ApplicationButton href="https://grafana.buc.sh" icon="grafana-logo.svg" text="Grafana" />
@@ -63,6 +64,23 @@ export function OpenApps2() {
         <ApplicationButton href="http://gatus.10.0.0.16.nip.io/" icon="gatus.svg" text="Gatus" />
         <ApplicationButton href="http://pihole.10.0.0.16.nip.io/admin/" icon="Pi-hole_vector_logo.svg" text="Pihole" />
       </AppLauncherComponent>
+
+      <ContainerImages />
     </Stack>
   </Grid>
+}
+
+export function ContainerImages() {
+  return <Grid item xs={12}>
+    <Card>
+      <CardHeader title="Images" />
+      <CardContent>
+        <Typography>docker.io/node:latest: outdated </Typography>
+        <Typography>ghcr.io.io/thomasbuchinger/nas-lcd:latest: ok</Typography>
+        <Typography>ghcr.io.io/thomasbuchinger/homepage-react:latest: ok</Typography>
+        <Typography><Button>Update Repo</Button> argocd:2.5.4: outdated</Typography>
+      </CardContent>
+    </Card>
+  </Grid>
+
 }

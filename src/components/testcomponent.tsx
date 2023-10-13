@@ -1,35 +1,23 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
-import Masonry from '@mui/lab/Masonry';
+"use client"
 
-const heights = [150, 30, 90, 70, 110, 150, 130, 80, 50, 90, 100, 150, 30, 50, 80];
+import { CheckUrlViaBackend, useHealthCheck } from "@/util/checks"
+import { Button, Card, CardContent, CardHeader, Grid, Typography } from "@mui/material"
 
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(0.5),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+export function Tailscale() {
+  const result = useHealthCheck("pikvm-mini reachable", { url: "http://pikvm-mini/login", expected_status: 301 }, CheckUrlViaBackend)
 
-export default function SSRMasonry() {
-  return (
-    <Box sx={{ width: 500, minHeight: 393 }}>
-      <Masonry
-        columns={4}
-        spacing={2}
-        defaultHeight={450}
-        defaultColumns={4}
-        defaultSpacing={1}
-      >
-        {heights.map((height, index) => (
-          <Item key={index} sx={{ height }}>
-            {index + 1}
-          </Item>
-        ))}
-      </Masonry>
-    </Box>
-  );
+
+  return <Grid item xs={1}>
+    <Card>
+      <CardHeader title="Pi KVM (Tailscale)" />
+      <CardContent>
+        <Typography>Connected: {result.state}</Typography>
+        <Typography>Message: {result.message}</Typography>
+        
+      </CardContent>
+      <CardContent>
+        <Button variant="outlined" href={""} target="_blank">Connect</Button>
+      </CardContent>
+    </Card>
+  </Grid>
 }

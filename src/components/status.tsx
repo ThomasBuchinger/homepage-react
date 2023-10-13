@@ -1,5 +1,5 @@
 'use client'
-import { Card, CardContent, Grid } from "@mui/material";
+import { Card, CardContent, Grid, Typography } from "@mui/material";
 import { ElementHeader } from "./baseelement";
 import { CheckDebuggerFunction, CheckMetric, CheckUrlViaBackend, useHealthCheck } from "@/util/checks";
 
@@ -22,7 +22,11 @@ export function Evergreen() {
       <Card>
         <ElementHeader name={name} ip={ipAddress} checks={healthChecks} cockpit={true} okd={console_url} github="voodoo-gitops" />
         <CardContent>TODO: CertManager certificate expireation metrics</CardContent>
-        <CardContent>Monitor DDNS update Job via KubeStateMetrics</CardContent>
+        <CardContent>
+          <Typography>Monitor DDNS update Job via KubeStateMetrics</Typography>
+          <Typography>ip.cloud.buc.sh: 1.2.3.4</Typography>
+          <Typography>curretn external ip: 5.6.7.8</Typography>
+        </CardContent>
       </Card>
     </Grid>
   )
@@ -44,7 +48,7 @@ export function NAS() {
     <Grid xs={cardSize} item>
       <Card>
         <ElementHeader name={name} ip={ipAddress} checks={healthChecks} truenas={true} />
-        <CardContent>Maybe MV List?</CardContent>
+        <CardContent>Maybe VM List?</CardContent>
         <CardContent>BS13 Replication status</CardContent>
         <CardContent>Backblaze B2 Backup status?</CardContent>
       </Card>
@@ -59,8 +63,11 @@ export function ProdK8s() {
   const healthChecks = [
     useHealthCheck("OKD Console reachable", { url: "http://" + console_url }, CheckUrlViaBackend),
     useHealthCheck("ArgoCD reachable", { url: "https://" + ipAddress, host: "argocd.buc.sh" }, CheckUrlViaBackend),
-    useHealthCheck("Velero? running", { state: "na" }, CheckDebuggerFunction),
-    useHealthCheck("PV mounted over iSCSI", { state: "na" }, CheckDebuggerFunction),
+    useHealthCheck("PV 'k8s-apps' over iSCSI: Bound",      { url: "http://kube-state-metrics." + ipAddress + ".nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "paperless", phase: "Bound" }, value: "1" }, CheckMetric),
+    useHealthCheck("PV 'k8s-apps' over iSCSI: not failed", { url: "http://kube-state-metrics." + ipAddress + ".nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "paperless", phase: "Failed" }, value: "0" }, CheckMetric),
+    // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Pending" }, value: "1" }, CheckMetric),
+    // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Available" }, value: "1" }, CheckMetric),
+    // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Released" }, value: "1" }, CheckMetric),
     useHealthCheck("Grafana/prometheus queryable", { state: "na" }, CheckDebuggerFunction),
   ]
   return (

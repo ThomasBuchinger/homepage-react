@@ -111,7 +111,7 @@ export function ElementLinkOkdConsole({ url, enabled }: {url: string, enabled: b
 }
 export function ElementLinkCockpitConsole({ ip, enabled }: { ip: string, enabled: boolean }) {
   return (
-    enabled ? <Link href={"http://" + ip + "9090"} target='_blank'><Image src={"/icons/cockpit.png"} alt="Open Cockpit Console" width={50} height={50} ></Image></Link>
+    enabled ? <Link href={"http://" + ip + ":9090"} target='_blank'><Image src={"/icons/cockpit.png"} alt="Open Cockpit Console" width={50} height={50} ></Image></Link>
       : <></>
   )
 }

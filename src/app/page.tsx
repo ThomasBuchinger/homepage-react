@@ -3,10 +3,10 @@ import styles from './page.module.css'
 import { AppBar, Divider, Grid, Stack } from '@mui/material'
 import BaseComponent from '@/components/baseelement'
 import { Masonry } from '@mui/lab'
-import SSRMasonry from '@/components/testcomponent'
 import TitleBar from './header'
 import { Evergreen, H3, KVM, NAS, ProdK8s } from '@/components/status'
-import { DnsUpdate, OpenApps, OpenApps2 } from '@/components/apps'
+import { ContainerImages, GitopsEvergreen, OpenApps, OpenApps2 } from '@/components/apps'
+import { Tailscale } from '@/components/testcomponent'
 
 
 export default function Home() {
@@ -21,8 +21,9 @@ export default function Home() {
 
         <Grid container spacing={2}>
           <OpenApps />
-          <DnsUpdate />
+          <GitopsEvergreen />
           <OpenApps2 />
+          <Tailscale />
         </Grid>
 
 
@@ -40,6 +41,10 @@ export default function Home() {
           <ProdK8s />
           <H3 />
           <KVM />
+          <BaseComponent name="Passive KVM" checks={[
+            "Cockpit",
+            "Nodeexporter"
+          ]} />
           <BaseComponent name="Network" checks={[
             "A1 router",
             "NG7 Router",
