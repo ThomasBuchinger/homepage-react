@@ -1,9 +1,9 @@
 'use client'
 import { CheckResult } from '@/util/checks'
-import { Check, CheckCircleRounded, CheckOutlined, CheckRounded, Circle, Clear, Close, Loop, Pause } from '@mui/icons-material'
-import { Box, Button, Card, CardContent, CardHeader, CardMedia, CircularProgress, Container, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, Grid, Icon, IconButton, Link, MobileStepper, Stack, Step, StepConnector, StepLabel, Stepper, TextField, TextareaAutosize, Tooltip, Typography, stepButtonClasses } from '@mui/material'
+import { Check, Circle, Close,Pause } from '@mui/icons-material'
+import { Avatar, Box, Card, CardContent, CardHeader, CircularProgress, Grid, IconButton, Link, Stack, Tooltip, Typography } from '@mui/material'
 import Image from 'next/image'
-import React, { use } from 'react'
+import React from 'react'
 
 export default function BaseComponent(props: any) {
   var checks = props.checks || ["Nothing"]
@@ -21,7 +21,7 @@ export function AppLauncherComponent(props: any) {
   return <Card>
     <CardHeader title={props.name} titleTypographyProps={{ variant: "h6" }} />
     <CardContent >
-      <Stack direction="row" spacing={5}>
+      <Stack direction="row" spacing={5} justifyContent={"space-around"}>
         {props.children}
       </Stack>
     </CardContent>
@@ -44,8 +44,9 @@ export function ElementHeader(props: any) {
   const enableCockpit = props.cockpit || false
   const enableTruenas = props.truenas || false
   const enableArgocd = props.argocd || false
-  const okd=props.okd || ""
-  const repo=props.github || ""
+  const okd = props.okd || ""
+  const repo = props.github || ""
+  const ipmi_ip = props.ipmi || ""
 
   const all_checks_passed = checkResults.every((c: CheckResult) => c.state === "ok")
   const links = [
@@ -61,6 +62,7 @@ export function ElementHeader(props: any) {
         action={<>
           <ElementLinkOkdConsole url={okd} enabled={okd !== ""} />
           <ElementLinkCockpitConsole ip={ipAddress} enabled={enableCockpit} />
+          <ElementLinkIpmi ipmi_ip={ipmi_ip} enabled={ipmi_ip !== "" } />
           <ElementLinkTruenasScale ip={ipAddress} enabled={enableTruenas} />
           <ElementLinkArgocd ip={ipAddress} enabled={enableArgocd} />
           <ElementLinkGithub repo={repo} enabled={repo !== ""} />
@@ -129,7 +131,19 @@ export function ElementLinkArgocd({ ip, enabled }: { ip: string, enabled: boolea
 }
 export function ElementLinkGithub({ repo, enabled }: { repo: string, enabled: boolean }) {
   return (
-    enabled ? <Link href={"https://github.com/thomasbuchinger/" + repo} target='_blank'><Image src={"/icons/github-mark.svg"} alt="Open Cockpit Console" width={45} height={45} style={{padding: "5px"}}></Image></Link>
+    enabled ? <Link href={"https://github.com/thomasbuchinger/" + repo} target='_blank'><Image src={"/icons/github-mark.svg"} alt="Open Cockpit Console" width={45} height={45} style={{ padding: "5px" }}></Image></Link>
+      : <></>
+  )
+}
+export function ElementLinkIpmi({ ipmi_ip, enabled }: { ipmi_ip: string, enabled: boolean }) {
+  return (
+    enabled ? <Link href={"http://" + ipmi_ip} target='_blank'><Image src={"/icons/ipmi.svg"} alt="Open IPMI Interface" width={60} height={60} ></Image></Link>
+      : <></>
+  )
+}
+export function ElementLinkTailscale({enabled }: { enabled: boolean }) {
+  return (
+    enabled ? <Link href={"https://login.tailscale.com/admin/machines"} target='_blank'><Avatar src={"/icons/tailscale-logo.png"} alt="Open Tailscale Admin Console" sx={{width: "50px", height: "50px"}}></Avatar></Link>
       : <></>
   )
 }

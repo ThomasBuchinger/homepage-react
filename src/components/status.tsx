@@ -1,7 +1,7 @@
 'use client'
 import { Card, CardContent, Grid, Typography } from "@mui/material";
 import { ElementHeader } from "./baseelement";
-import { CheckDebuggerFunction, CheckMetric, CheckUrlViaBackend, useHealthCheck } from "@/util/checks";
+import { CheckMetric, CheckUrlViaBackend, useHealthCheck } from "@/util/checks";
 
 const cardSize = 3
 
@@ -48,7 +48,6 @@ export function NAS() {
     <Grid xs={cardSize} item>
       <Card>
         <ElementHeader name={name} ip={ipAddress} checks={healthChecks} truenas={true} />
-        <CardContent>Maybe VM List?</CardContent>
         <CardContent>BS13 Replication status</CardContent>
         <CardContent>Backblaze B2 Backup status?</CardContent>
       </Card>
@@ -68,12 +67,15 @@ export function ProdK8s() {
     // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Pending" }, value: "1" }, CheckMetric),
     // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Available" }, value: "1" }, CheckMetric),
     // useHealthCheck("PV over iSCSI", { url: "http://kube-state-metrics." + ipAddress + ":nip.io/metrics", metric: "kube_persistentvolume_status_phase", labels: { persistentvolume: "k8s-apps", phase: "Released" }, value: "1" }, CheckMetric),
-    useHealthCheck("Grafana/prometheus queryable", { state: "na" }, CheckDebuggerFunction),
+    // useHealthCheck("Grafana/prometheus queryable", { state: "na" }, CheckDebuggerFunction),
   ]
   return (
     <Grid xs={cardSize} item>
       <Card>
         <ElementHeader name={name} ip={ipAddress} checks={healthChecks} okd={console_url} argocd={true} github="prod-gitops" />
+        <CardContent>
+          Add Ingress to Prometheus API
+        </CardContent>
       </Card>
     </Grid>
   )
@@ -105,7 +107,7 @@ export function KVM() {
   return (
     <Grid xs={cardSize} item>
       <Card>
-        <ElementHeader name={name} ip={ipAddress} checks={healthChecks} cockpit={true} />
+        <ElementHeader name={name} ip={ipAddress} checks={healthChecks} cockpit={true} ipmi="10.0.0.18" />
         <CardContent>Maybe VM list?</CardContent>
       </Card>
     </Grid>
