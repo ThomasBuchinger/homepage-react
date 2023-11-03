@@ -40,6 +40,7 @@ export default function TitleBar() {
             <Button href='/status' sx={{ my: 2, color: 'white', display: 'block' }} >Status</Button>
             <Button href='/apps' sx={{ my: 2, color: 'white', display: 'block' }} >Application</Button>
             <Button href='/notes' sx={{ my: 2, color: 'white', display: 'block' }} >Notes</Button>
+            <Button href='/external' sx={{ my: 2, color: 'white', display: 'block' }} >External</Button>
           </Box>
         </Toolbar>
       </Box>

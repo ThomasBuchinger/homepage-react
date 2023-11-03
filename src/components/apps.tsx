@@ -5,26 +5,32 @@ import { AppLauncherComponent, ApplicationButton, ElementLinkTailscale } from ".
 const grid_size = "auto"
 
 export function GitopsEvergreen() {
-  return <Grid item xs={grid_size}>
-    <Card>
-      <CardHeader title="Evergreen - Gitops" titleTypographyProps={{ variant: "h6" }}
-        avatar={<Image src="/icons/github-mark.svg" alt="Edit DNS Entried" width={25} height={25} />} />
-      <CardContent>
-        <Typography>Edit DNS Settings</Typography>
-        <Button  href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/pihole/pihole-helm.yaml#L48"} target="_blank" >DNS config</Button>
-      </CardContent>
-      <CardContent >
-        <Typography>Certificates for Prod</Typography>
-        <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/stuff/prod/certs.yaml"} target="_blank" >Certificates</Button>
-        <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/vault/instance/patch-vault-content.yaml"} target="_blank" >Vault Import</Button>
-      </CardContent>
-      <CardContent>
-        <Typography>Gatus Uptime</Typography>
-        <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/gatus/gatus-config.yaml"} target="_blank" >Open Config</Button>
-      </CardContent>
-    </Card>
-  </Grid>
+  return <Card>
+    <CardHeader title="Evergreen - Gitops" titleTypographyProps={{ variant: "h6" }}
+      avatar={<Image src="/icons/github-mark.svg" alt="Edit DNS Entried" width={25} height={25} />} />
+    <CardContent>
+      <Typography>Edit DNS Settings</Typography>
+      <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/pihole/pihole-helm.yaml#L48"} target="_blank" >DNS config</Button>
+    </CardContent>
+    <CardContent >
+      <Typography>Certificates for Prod</Typography>
+      <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/stuff/prod/certs.yaml"} target="_blank" >Certificates</Button>
+      <Button href={"https://github.com/ThomasBuchinger/voodoo-gitops/blob/main/gitops/vault/instance/patch-vault-content.yaml"} target="_blank" >Vault Import</Button>
+    </CardContent>
+  </Card>
 }
+export function HomepageOps() {
+  return <Card>
+    <CardHeader title="Homepage" titleTypographyProps={{ variant: "h6" }}
+      avatar={<Image src="/icons/github-mark.svg" alt="Edit DNS Entried" width={25} height={25} />} />
+    <CardContent>
+      <Typography>Renovate PRs</Typography>
+      <Button href={"https://github.com/ThomasBuchinger/homepage-react/pulls"} target="_blank" >Open PRs</Button>
+      <Button href={"http://evergreen-console.10.0.0.16.nip.io/k8s/ns/homepage/core~v1~Pod"} target="_blank" >Delete Pod</Button>
+    </CardContent>
+  </Card>
+}
+
 export function ProductionApps() {
   return (
     <AppLauncherComponent name="Production">
@@ -38,7 +44,9 @@ export function ProductionApps() {
 export function UtilityApps() {
   return (
     <AppLauncherComponent name="Utility">
-      <Button variant="outlined" href={""} target="_blank">PDF Utils</Button>
+      <ApplicationButton href="http://pdf.bus.sh" icon="stirling-transparent.svg" text="PDF Tools" />
+      <ApplicationButton href="https://ittools.tech" icon="ittools-logo.png" text="IT Tools" />
+      <ApplicationButton href="http://paste.buc.sh" icon="wastebin-logo.png" text="Wastebin" />
     </AppLauncherComponent>
   )
 }
@@ -47,8 +55,6 @@ export function TrialApps() {
     <AppLauncherComponent name="Trial Apps">
       <Button variant="outlined" href={""} target="_blank">KASM</Button>
       <Button variant="outlined" href={""} target="_blank">LocalAI</Button>
-      <Button variant="outlined" href={""} target="_blank">IT Tools (?)</Button>
-      <ApplicationButton href="http://paste.buc.sh" icon="wastebin-logo.png" text="Wastebin" />
     </AppLauncherComponent>
   )
 }

@@ -1,24 +1,32 @@
 import styles from './page.module.css'
-import { Divider, Grid } from '@mui/material'
+import { Divider, Grid, Stack } from '@mui/material'
 import { Evergreen, NAS, ProdK8s } from '@/components/status'
-import { InfrastructureApps, ProductionApps, Tailscale, UtilityApps } from '@/components/apps'
+import { GitopsEvergreen, HomepageOps, InfrastructureApps, ProductionApps, Tailscale, UtilityApps } from '@/components/apps'
 
 
 export default function Home() {
   return (
     <>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <ProductionApps />
         </Grid>
         <Grid item>
-          <UtilityApps />
+          <Tailscale />
         </Grid>
-        <Grid item>
+        <Grid item >
           <InfrastructureApps />
         </Grid>
-        <Grid item>
-          <Tailscale />
+        <Grid item xs={8}>
+          <UtilityApps />
+        </Grid>
+        <Grid item xs={2}>
+          <GitopsEvergreen />
+        </Grid>
+        <Grid item xs={2}>
+          <Stack spacing={2}>
+            <HomepageOps />
+          </Stack>
         </Grid>
         
         {/* <GitopsEvergreen />
